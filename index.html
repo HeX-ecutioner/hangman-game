@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="images/hangman.png" type="image/x-icon">
+
+    <script src="script.js" defer></script>
+    <title>Hangman Game</title>
+</head>
+
+<body>
+    <div id="container">
+        <h1 style="text-align: center;">Hangman Game</h1>
+        <img src="images/hangman.png" id="icon"> <!--Might replace with a developer info handle or something in the future-->
+
+        <div id="wrapper" style="display: flex; gap: 15px;"> <!--This wrapper helps to stack the 2 divs side-by-side-->
+            <div id="hangmanImage"> <!--Contains the hanged man's status-->
+                <img src="images/0.svg" id="hangmanImg"> <!--Changes through JS as the game progresses-->
+                <p style="padding-left: 60px;">Incorrect Guesses: <b><span id="incorrectCount">0/6</span></b></p>
+            </div>
+
+            <div id="gameSection" style="text-align: center;"> <!--Contains the blanks, hint and keyboard-->
+                <h1 id="blanks" style="font-size: 2em; letter-spacing: 0.2em;"></h1>
+                <i><p id="hint"></p></i> <!--Powered by Dictionary API's definitions-->
+                <div id="keyboard" class="keyboard" style="display: grid; gap: 8px;"></div> <!--TBA by JS-->
+            </div>
+        </div>
+    </div>
+
+    <div id="resultPopup" style="display: none;"> <!--Displayed after the game ends-->
+        <div id="popupContent">
+            <img id="resultGif" width="100px" height="100px">
+            <p id="resultText" style="margin: 10px 0;"></p>
+            <button id="playAgain" style="width: 100%;">Play Again</button>
+        </div>
+    </div>
+</body>
+
+</html>
