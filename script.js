@@ -23,21 +23,16 @@ function selectWord() {
 
     async function getWordAndHint() {
         try {
-            const words = await fetchCandidates();
-            const lookups = words.map(w => fetchDef(w));
-            // Pick the first word that returns a valid definition
-            const { word, definition } = await Promise.any(lookups);
-
+            const words = await fetchCandidates(), lookups = words.map(w => fetchDef(w));
+            const { word, definition } = await Promise.any(lookups); // Pick the first word that returns a valid definition
             selectedWord = word;
             hint = definition;
             blanks = Array(selectedWord.length).fill('_'); // update ONLY after both are ready
             updateDisplay();
         } catch (e) {
-            // All candidates failed — try again
-            getWordAndHint();
+            getWordAndHint(); // All candidates failed — try again
         }
     }
-
     getWordAndHint().catch(err => console.error('Error in selectWord:', err));
 }
 
@@ -96,8 +91,40 @@ document.getElementById('playAgain').addEventListener('click', () => {
     createKeyboard();
     document.getElementById('resultPopup').style.display = "none";
 });
-
 document.addEventListener('DOMContentLoaded', () => {
     selectWord();
     createKeyboard();
+});
+
+const darkModeSwitch = document.getElementById('darkModeSwitch'), sliderIcon = darkModeSwitch.querySelector('.icon');
+function setDarkMode(enabled, remember = true) {
+    if (enabled) {
+        document.body.classList.add('dark');
+        sliderIcon.textContent = "☀️";
+        darkModeSwitch.title = "Switch to Light Mode";
+        if (remember) localStorage.setItem('darkMode', 'enabled');
+    } else {
+        document.body.classList.remove('dark');
+        sliderIcon.textContent = "🌙";
+        darkModeSwitch.title = "Switch to Dark Mode";
+        if (remember) localStorage.setItem('darkMode', 'disabled');
+    }
+}
+
+const savedPreference = localStorage.getItem('darkMode');
+if (savedPreference) setDarkMode(savedPreference === 'enabled', false);
+else { // No saved preference → follow system
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setDarkMode(prefersDark, false);
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('darkMode')) {
+        setDarkMode(e.matches, false);
+    }
+});
+
+darkModeSwitch.addEventListener('click', () => {
+    const isDark = !document.body.classList.contains('dark');
+    setDarkMode(isDark);
 });

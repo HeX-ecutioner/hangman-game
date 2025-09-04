@@ -4,6 +4,36 @@
     font-family: "Open Sans", sans-serif;
 }
 
+#darkModeSwitch {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: 30px;
+    background: #ccc;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;   /* vertical centering */
+    justify-content: flex-start; /* start position for slider */
+    transition: background 0.3s;
+    box-sizing: border-box;
+    padding: 0 3px; /* equal spacing left+right instead of top */
+}
+#darkModeSwitch .slider {
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, background 0.3s;
+    font-size: 16px;
+    line-height: 1;
+    user-select: none;
+}
+
 body {
     margin: 0;
     display: flex;
@@ -11,6 +41,44 @@ body {
     justify-content: center;
     height: 100vh;
     background: #6268ca;
+}
+
+body.dark {
+    background: #1b1833; /* dark purple base */
+    color: #e6e6f0;
+}
+body.dark #container {
+    background: #2c2955; /* slightly lighter purple */
+    color: #f1f1f1;
+}
+
+body.dark button {
+    background: #6c63ff; /* purple accent */
+    color: #fff;
+}
+body.dark button:hover {
+    filter: brightness(90%);
+}
+body.dark button:active {
+    filter: brightness(80%);
+}
+body.dark button:disabled {
+    background: #aaa; 
+    color: #555; /* faintly visible letter */
+}
+
+body.dark #popupContent {
+    background: #2c2955;
+    color: #fff;
+}
+
+body.dark #darkModeSwitch {
+    background: #8884d8; /* purple shade */
+}
+body.dark #darkModeSwitch .slider {
+    transform: translateX(30px);
+    background: #2c2c54;
+    color: #fff;
 }
 
 #container {
